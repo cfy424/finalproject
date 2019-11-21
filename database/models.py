@@ -38,7 +38,7 @@ class Customer(models.Model):
     c_email = models.EmailField(unique=True)
     c_phone = models.IntegerField(max_length=10, unique=True)
     company = models.CharField(max_length=64)
-    income = models.IntegerField(null=True)
+    income = models.PositiveIntegerField(null=True)
     c_address = models.OneToOneField(CustomerAddress, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, null=True, on_delete=models.CASCADE)
     order_history = models.ForeignKey(OrderHistory, null=True, on_delete=models.CASCADE)
@@ -47,7 +47,7 @@ class Customer(models.Model):
 class EmployeeAddress(models.Model):
     street = models.CharField(max_length=64)
     city = models.CharField(max_length=32)
-    state = models.CharField(max_length=4)
+    state = models.CharField(max_length=2)
     zip_code = models.IntegerField(max_length=5)
 
 
@@ -103,9 +103,9 @@ class Resolution(models.Model):
         (APPROVED, 'Approve')
     ]
 
-    r_name = models.CharField(max_length=16, choices=name_choice)
-    common_way = models.CharField(max_length=16)
+    resolution_name = models.CharField(choices=name_choice)
     step = models.CharField(choices=step_choice)
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.OneToOneField(OrderHistory, on_delete=models.CASCADE)
     employee = models.OneToOneField(Employee, on_delete=models.CASCADE)
+
