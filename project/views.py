@@ -27,7 +27,6 @@ def login(request):
                 return render(request, 'login/login.html', {'message': message})
             if user.e_password == password:
                 request.session['is_login'] = True
-                request.session['user_id'] = user.e_id
                 request.session['user_name'] = user.e_name
                 return redirect('/index/')
             else:
@@ -54,27 +53,21 @@ def register(request):
         state = request.POST.get('state')
         zip = request.POST.get('zip')
 
-        same_name_user = models.Employee.objects.filter(e_name=username)
-        if same_name_user:
-            message = '用户名已经存在'
-            return render(request, 'login/register.html', {'message': message})
-        same_email_user = models.Employee.objects.filter(e_email=email)
-        if same_email_user:
-            message = '该邮箱已经被注册了！'
-            return render(request, 'login/register.html', {'message': message})
-        new_user = models.Employee()
-        new_user.e_name = username
-        new_user.e_password = password
-        new_user.e_email = email
-        new_user.e_phone=phone
-        new_user.job_title=title
-        new_user.save()
-        new_address=models.EmployeeAddress()
-        new_address.street=street
-        new_address.city=city
-        new_address.state=state
-        new_address.zip_code=zip
-        new_address.save()
+        e = models.Employee.objects.create(
+            e_name=username,
+            e_password=password,
+            e_email=email,
+            e_phone=phone,
+            job_title=title
+        )
+        models.EmployeeAddress.objects.create(
+            street=street,
+            city=city,
+            state=state,
+            zip_code=zip,
+            e_address=e
+        )
+
         return redirect('/login/')
 
     return render(request, 'login/register.html')
@@ -82,6 +75,12 @@ def register(request):
 
 def logout(request):
     if not request.session.get('is_login', None):
+        # 如果本来就未登录，也就没有登出一说
         return redirect("/login/")
+    request.session.flush()
+    # 或者使用下面的方法
+    # del request.session['is_login']
+    # del request.session['user_id']
+    # del request.session['user_name']
     return redirect("/login/")
 
