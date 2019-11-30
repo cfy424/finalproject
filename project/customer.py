@@ -32,13 +32,13 @@ def login(request):
         message = 'please input'
         if username.strip() and password:
             try:
-                user = models.Employee.objects.get(e_name=username)
+                user = models.Customer.objects.get(c_name=username)
             except:
                 message = 'user not exist'
                 return render(request, 'login/login.html', {'message': message})
             if user.e_password == password:
                 request.session['is_login'] = True
-                request.session['user_name'] = user.e_name
+                request.session['user_name'] = user.c_name
                 return redirect('/index/')
             else:
                 message = 'incorrect password'
@@ -58,30 +58,33 @@ def register(request):
         password = request.POST.get('password')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
-        title = request.POST.get('title')
+        income = request.POST.get('income')
+        company = request.POST.get('company')
         street = request.POST.get('street')
         city = request.POST.get('city')
         state = request.POST.get('state')
         zip = request.POST.get('zip')
 
-        e = models.Employee.objects.create(
-            e_name=username,
-            e_password=password,
-            e_email=email,
-            e_phone=phone,
-            job_title=title
+        c = models.Customer.objects.create(
+            c_name=username,
+            c_password=password,
+            c_email=email,
+            c_phone=phone,
+            income=income,
+            company=company
         )
-        models.EmployeeAddress.objects.create(
+        models.CustomerAddress.objects.create(
             street=street,
             city=city,
             state=state,
             zip_code=zip,
-            e_address=e
+            c_address=c
         )
 
         return redirect('/login/')
 
     return render(request, 'login/register.html')
+
 
 
 def logout(request):
