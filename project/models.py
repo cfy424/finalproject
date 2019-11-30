@@ -45,14 +45,7 @@ class Customer(models.Model):
     order_history = models.ForeignKey(OrderHistory, null=True, on_delete=models.CASCADE)
 
 
-class EmployeeAddress(models.Model):
-    street = models.CharField(max_length=64)
-    city = models.CharField(max_length=32)
-    state = models.CharField(max_length=2)
-    zip_code = models.IntegerField(max_length=5)
-
-
-class Employee(models.Model):
+    class Employee(models.Model):
     DATABASE_ADMINISTRATOR = 'DBA'
     SALESPERSON = 'Sales'
     job_choice = [
@@ -66,8 +59,15 @@ class Employee(models.Model):
     e_email = models.EmailField(unique=True)
     e_phone = models.IntegerField(max_length=10, unique=True)
     job_title = models.CharField(max_length=16, choices=job_choice)
-    e_address = models.OneToOneField(EmployeeAddress, on_delete=models.CASCADE)
-
+    
+    
+    
+class EmployeeAddress(models.Model):
+    street = models.CharField(max_length=64)
+    city = models.CharField(max_length=32)
+    state = models.CharField(max_length=2)
+    zip_code = models.IntegerField(max_length=5)
+    e_address = models.OneToOneField(Employee, on_delete=models.CASCADE)
 
 class Case(models.Model):
     OPEN = 'O'
