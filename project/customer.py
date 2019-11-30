@@ -86,7 +86,6 @@ def register(request):
     return render(request, 'login/register.html')
 
 
-
 def logout(request):
     if not request.session.get('is_login', None):
         # 如果本来就未登录，也就没有登出一说
@@ -129,79 +128,6 @@ def get_product(request):
     return render(request, "login/index.html", {"param": getProduct, "searchType": search_type, "keyword": keyword})
 
 
-# add product
-@login
-def add_product(request):
-    if request.method == 'POST':
-        new_price = request.POST.get('price')
-        new_product_name = request.POST.get('p_name')
-        new_description = request.POST.get('p_description')
-        new_quantity = request.POST.get('quantity')
-        new_sale = request.POST.get('sale')
-        models.Product.objects.create(
-            price=new_price,
-            p_name=new_product_name,
-            p_description=new_description,
-            quantity=new_quantity,
-            sale=new_sale
-        )
-        return redirect('index.html')
-
-
-# delete product
-@login
-def drop_product(request):
-    drop_id = request.GET.get('id')
-    drop_obj = models.Product.objects.get(id=drop_id)
-    drop_obj.delete()
-    return redirect('/product_list/')
-
-
-# update product
-@login
-def edit_product(request):
-    if request.method == 'POST':
-        new_name = request.POST.get('name')
-        new_description = request.POST.get('description')
-        new_price = request.POST.get('price')
-        new_sale = request.POST.get('sale')
-        new_quantity = request.POST.get('quantity')
-        edit_id = request.GET.get('id')
-        edit_obj = models.Product.objects.get(id=edit_id)
-        edit_obj.p_name = new_name
-        edit_obj.price = new_price
-        edit_obj.p_description = new_description
-        edit_obj.sale = new_sale
-        edit_obj.quantity = new_quantity
-        edit_obj.save()
-        return HttpResponse('success')
-
-
-'''
-# all customer
-def customer_list(request):
-    customer = models.Customer.objects.all()
-    cAddress = model.CustomerAddress.objects.all()
-    return render(request, 'customer_list.html', {'customer_list': customer})
-
-
-# all employee
-def employee_list(request):
-    employee = models.Customer.objects.all()
-    eAddress = model.EmployeeAddress.objects.all()
-    return render(request, 'employee_list.html', {'product_list': employee})
-'''
-
-
-# delete customer
-@login
-def del_customer(request):
-    delID = request.GET.get('id')
-    delCustomer = models.Customer.objects.get(id=delID)
-    delCustomer.delete()
-    return redirect('/customer_list/')
-
-
 # search customer info
 @login
 def customer_info(request):
@@ -230,37 +156,6 @@ def customer_info(request):
             state=state,
             zip_code=Zip,
             c_address=c
-        )
-
-
-# employee info
-@login
-def employee_info(request):
-    if request.method == 'POST':
-        message = "请检查填写的内容！"
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
-        title = request.POST.get('title')
-        street = request.POST.get('street')
-        city = request.POST.get('city')
-        state = request.POST.get('state')
-        zip = request.POST.get('zip')
-
-        e = models.Employee.objects.filter(
-            e_name=username,
-            e_password=password,
-            e_email=email,
-            e_phone=phone,
-            job_title=title
-        )
-        models.EmployeeAddress.objects.filter(
-            street=street,
-            city=city,
-            state=state,
-            zip_code=zip,
-            e_address=e
         )
 
 
@@ -360,26 +255,6 @@ def case_product(request):
         return case_product
 
 
-# case aggregation by customer
-@login
-def case_customer(request):
-    if request.method == 'POST':
-        name = models.Case.customer.c_name
-        models.Case.objects.annotate(ca_num=Count(models.Case.objects.get(models.Case.customer))).order_by('ca_num')
-        models.Case.objects.annotate(c_sum=Count(models.Case.objects.get(models.Case.customer.c_name))).\
-            values(name, 'c_sum').order_by('c_sum')
-        return case_customer
-
-
-# case aggregation by company
-@login
-def case_company(request):
-    if request.method == 'POST':
-        models.Case.objects.annotate(ca_num=Count(models.Case.objects.get(models.Case.customer.company))).\
-            order_by('ca_num')
-        return case_company
-
-
 # edit case
 @login
 def edit_case(request):
@@ -421,13 +296,3 @@ def resolution_info(request):
         )
 
 
-# edit step
-@login
-def edit_step(request):
-    if request.method == 'POST':
-        new_step = request.POST.get('new_step')
-        edit_id = request.GET.get('id')
-        edit_obj = models.Resolution.objects.get(id=edit_id)
-        edit_obj.step = new_step
-        edit_obj.save()
-        return HttpResponse('success')
