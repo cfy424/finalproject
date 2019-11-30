@@ -78,7 +78,7 @@ DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'testdb',  # 数据库名字(需要先创建)
-        'USER': 'Master',  # 登录用户名
+        'USER': 'postgres',  # 登录用户名
         'PASSWORD': '977168',  # 密码
         'HOST': '',  # 数据库IP地址,留空默认为localhost
         'PORT': '5432',  # 端口
