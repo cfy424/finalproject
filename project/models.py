@@ -22,6 +22,7 @@ class EmployeeAddress(models.Model):
     state = models.CharField(max_length=2)
     zip_code = models.IntegerField(max_length=5
     e_address = models.OneToOneField(Employee, on_delete=models.CASCADE)
+                                   
 
 
 class Customer(models.Model):
