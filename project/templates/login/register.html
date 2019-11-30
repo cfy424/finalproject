@@ -1,10 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- 上述meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <title>注册</title>
-</head>
-<body>
-<h1>注册页面</h1>
-</body>
+  </head>
+  <body>
+    <div class="container">
+            <div class="col">
+                <form style="width: 100%;max-width: 400px;padding: 15px;margin: 0 auto" action="/register/" method="post">
+
+                  {% csrf_token %}
+                  <h3 class="text-center">欢迎注册</h3>
+
+                  <div >
+                    <label for="id_username">username：</label>
+                    <input type="text" name='username' class="form-control" id="id_username" placeholder="Username" autofocus required>
+                  </div>
+                  <div class="form-group">
+                    <label for="id_password">password：</label>
+                    <input type="password" name='password' class="form-control" id="id_password" placeholder="Password" required>
+                  </div>
+                    <div class="form-group">
+                    <label for="email">email：</label>
+                    <input type="email" name='email' class="form-control" id="email" placeholder="Email" required>
+                  </div>
+                    <div class="form-group">
+                    <label for="phone">phone：</label>
+                    <input type="number" name='phone' class="form-control" id="phone" placeholder="Phone" required>
+                  </div>
+                    <div class="form-group">
+                        <label >job_title：</label>
+                        <select name="title" class="form-control">
+                            <option value ="DBA">Database_Administrator</option>
+                            <option value ="Sales">Salesperson</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                    <label for="street">street：</label>
+                    <input type="text" name='street' class="form-control" id="street" placeholder="street" required>
+                  </div>
+                    <div class="form-group">
+                    <label for="city">city：</label>
+                    <input type="text" name='city' class="form-control" id="city" placeholder="city" required>
+                  </div>
+                    <div class="form-group">
+                    <label for="state">state：</label>
+                    <input type="text" name='state' class="form-control" id="state" placeholder="state" required>
+                  </div>
+                    <div class="form-group">
+                    <label for="zip">zip：</label>
+                    <input type="text" name='zip' class="form-control" id="zip" placeholder="zip" required>
+                  </div>
+
+                  <div>
+                      <a href="/login/"  ><ins>直接登录</ins></a>
+                      <button type="submit" class="btn btn-primary float-right">注册</button>
+                  </div>
+                </form>
+            </div>
+    </div> <!-- /container -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    {#    以下三者的引用顺序是固定的#}
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.15.0/umd/popper.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  </body>
 </html>

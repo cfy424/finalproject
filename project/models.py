@@ -35,7 +35,7 @@ class OrderHistory(models.Model):
 class Customer(models.Model):
     c_id = models.AutoField(primary_key=True)
     c_name = models.CharField(max_length=32)
-    c_password=models.CharField(max_length=32)
+    c_password=models.CharField(max_length=32,default="")
     c_email = models.EmailField(unique=True)
     c_phone = models.IntegerField(max_length=10, unique=True)
     company = models.CharField(max_length=64)
@@ -62,6 +62,7 @@ class Employee(models.Model):
 
     e_id = models.AutoField(primary_key=True)
     e_name = models.CharField(max_length=32)
+    e_password=models.CharField(max_length=32,default="")
     e_email = models.EmailField(unique=True)
     e_phone = models.IntegerField(max_length=10, unique=True)
     job_title = models.CharField(max_length=16, choices=job_choice)
