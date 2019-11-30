@@ -13,14 +13,14 @@ class Employee(models.Model):
     e_email = models.EmailField(unique=True)
     e_phone = models.IntegerField(max_length=10, unique=True)
     job_title = models.CharField(max_length=16, choices=job_choice)
+    e_password = models.CharField(max_length=32)
 
 
 class EmployeeAddress(models.Model):
     street = models.CharField(max_length=64)
     city = models.CharField(max_length=32)
     state = models.CharField(max_length=2)
-    zip_code = models.IntegerField(max_length=5)
-    e_password = models.CharField(max_length=32)
+    zip_code = models.IntegerField(max_length=5
     e_address = models.OneToOneField(Employee, on_delete=models.CASCADE)
 
 
