@@ -290,7 +290,10 @@ def history_info(request):
 @login
 def history_customer(request):
     if request.method == 'POST':
-        pass
+        cname = models.OrderHistory.order_history.c_name
+        models.OrderHistory.objects.annotate(his_num=Count(models.OrderHistory.objects.get(models.Case.customer))).order_by('his_num')
+        models.OrderHistory.objects.annotate(his_sum=Count(models.OrderHistory.objects.get(models.Case.customer.c_name))). \
+            values(cname, 'his_sum').order_by('his_sum')
 
 
 # case_info
