@@ -1,72 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>company</title>
-    <link href="../static/css/1.css" rel="stylesheet"  type="text/css" />
-</head>
-<body>
-<header>
-  <h1>
-         <span class="orange">  management interface  </span>
-  </h1>
-</header>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}资产总表{% endblock %}
 
-<nav>
-      <ul>
-        <li><a href="login.html" class= "selected">Managerial employee login interface  </a> </li>
-        <li><a href="search1.html">Search for cases by status and time frame </a></li>
-        <li><a href="search2.html">Search for a customer and purchased products </a></li>
-        <li><a href="search3.html">Search for common resolutions by product </a></li>
+{% block css %}{% endblock %}
 
-      </ul>
-</nav>
-
-<div id="content">
-
-    <section>
-        <h1>Content</h1>
-        <body>
-	<div class="search">
-		<form action="#" method="post">
-			<img src="./search_ico.png" alt="">
-			<input type="text" name="condition" placeholder="input please">
-			<input type="submit" value="search">
-		</form>
-	</div>
-</body>
-        <iframe src="customers_list.html" height="300" width="600">
-                       <a href="customers_list.html">
-
-                       </a>
-              </iframe >
-
+{% block breadcrumb %}
+<!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        资产总表
+        <small>assets list</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li class="active">资产总表</li>
+      </ol>
     </section>
+{% endblock %}
 
-    <aside>
-        <ul>
-            <li><a href="customers_list.html" class="selected">customers list </a> </li>
-            <li><a href="index1.html">employees list </a></li>
-            <li><a href="index1.html">products list</a></li>
-            <li><a href="index1.html">cases list </a></li>
-            <li><a href="index1.html">resolutions list </a></li>
-
-        </ul>
-    </aside>
-</div>
-<p>
-    <a href="/logout/">登出</a>
-</p>
-
-<footer>
-        <p>If you have any problem</p>
-        <hr />
-        <small>Please contact us</small>
-        <small>Thank you</small>
-
-</footer>
+{% block content %}
+{% endblock %}
 
 
-
-</body>
-</html>
+{% block script %}
+{% endblock %}
